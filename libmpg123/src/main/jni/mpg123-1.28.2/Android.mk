@@ -4,6 +4,8 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libmpg123
 
+LOCAL_ARM_MODE := arm
+
 LOCAL_LDLIBS := -llog
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/android \
