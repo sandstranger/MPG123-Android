@@ -114,45 +114,6 @@ typedef ssize_t mpg123_ssize_t;
 	More complication: What about client code defining _LARGEFILE64_SOURCE? It might want direct access to the _64 functions, along with the ones without suffix. Well, that's possible now via defining MPG123_NO_LARGENAME and MPG123_LARGESUFFIX, respectively, for disabling or enforcing the suffix names.
 */
 
-/*
-	Now, the renaming of large file aware functions.
-	By default, it appends underscore _FILE_OFFSET_BITS (so, mpg123_seek_64 for mpg123_seek), if _FILE_OFFSET_BITS is defined. You can force a different suffix via MPG123_LARGESUFFIX (that must include the underscore), or you can just disable the whole mess by defining MPG123_NO_LARGENAME.
-*/
-#if (!defined MPG123_NO_LARGENAME) && ((defined _FILE_OFFSET_BITS) || (defined MPG123_LARGESUFFIX))
-
-/* Need some trickery to concatenate the value(s) of the given macro(s). */
-#define MPG123_MACROCAT_REALLY(a, b) a ## b
-#define MPG123_MACROCAT(a, b) MPG123_MACROCAT_REALLY(a, b)
-#ifndef MPG123_LARGESUFFIX
-#define MPG123_LARGESUFFIX MPG123_MACROCAT(_, _FILE_OFFSET_BITS)
-#endif
-#define MPG123_LARGENAME(func) MPG123_MACROCAT(func, MPG123_LARGESUFFIX)
-
-#define mpg123_open_fixed   MPG123_LARGENAME(mpg123_open_fixed)
-#define mpg123_open         MPG123_LARGENAME(mpg123_open)
-#define mpg123_open_fd      MPG123_LARGENAME(mpg123_open_fd)
-#define mpg123_open_handle  MPG123_LARGENAME(mpg123_open_handle)
-#define mpg123_framebyframe_decode MPG123_LARGENAME(mpg123_framebyframe_decode)
-#define mpg123_decode_frame MPG123_LARGENAME(mpg123_decode_frame)
-#define mpg123_tell         MPG123_LARGENAME(mpg123_tell)
-#define mpg123_tellframe    MPG123_LARGENAME(mpg123_tellframe)
-#define mpg123_tell_stream  MPG123_LARGENAME(mpg123_tell_stream)
-#define mpg123_seek         MPG123_LARGENAME(mpg123_seek)
-#define mpg123_feedseek     MPG123_LARGENAME(mpg123_feedseek)
-#define mpg123_seek_frame   MPG123_LARGENAME(mpg123_seek_frame)
-#define mpg123_timeframe    MPG123_LARGENAME(mpg123_timeframe)
-#define mpg123_index        MPG123_LARGENAME(mpg123_index)
-#define mpg123_set_index    MPG123_LARGENAME(mpg123_set_index)
-#define mpg123_position     MPG123_LARGENAME(mpg123_position)
-#define mpg123_length       MPG123_LARGENAME(mpg123_length)
-#define mpg123_framelength  MPG123_LARGENAME(mpg123_framelength)
-#define mpg123_set_filesize MPG123_LARGENAME(mpg123_set_filesize)
-#define mpg123_replace_reader MPG123_LARGENAME(mpg123_replace_reader)
-#define mpg123_replace_reader_handle MPG123_LARGENAME(mpg123_replace_reader_handle)
-#define mpg123_framepos MPG123_LARGENAME(mpg123_framepos)
-
-#endif /* largefile hackery */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
