@@ -222,4 +222,10 @@ LOCAL_SRC_FILES := \
 
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_C_INCLUDES)
 
+ifeq ($(APP_OPTIM),debug)
+	LOCAL_LDLIBS += $(LOCAL_PATH)/../../../../../SAFFAL/saffal/build/intermediates/merged_native_libs/debug/mergeDebugNativeLibs/out/lib/$(TARGET_ARCH_ABI)/libsaffal.so
+else
+	LOCAL_LDLIBS += $(LOCAL_PATH)/../../../../../SAFFAL/saffal/build/intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib/$(TARGET_ARCH_ABI)/libsaffal.so
+endif
+
 include $(BUILD_SHARED_LIBRARY)
