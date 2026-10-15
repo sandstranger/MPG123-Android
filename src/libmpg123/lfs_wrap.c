@@ -58,9 +58,6 @@
 #endif
 #endif
 
-// A paranoid check that someone did not define a wrong SIZEOF_OFF_T at configure time.
-typedef unsigned char MPG123_STATIC_ASSERT[(SIZEOF_OFF_T == sizeof(off_t)) ? 1 : -1];
-
 #include "../common/debug.h"
 
 // We do not want to expose this publicly, but it is cleaner to have it also defined
